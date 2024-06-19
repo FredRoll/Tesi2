@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container">
+  <h1 class="page-header">Aggiungi Immagine a Database</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    <form action="" method="post">
+	{{ form.hidden_tag() }}
+	<p>Nome Immagine:</p>
+    <p><input name="text">   <input type="submit" value="Invia"/></p>
+    </div>
+    </form>
+
+	
+{% endblock %}

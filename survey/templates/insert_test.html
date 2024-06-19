@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="container">
+  <h1 class="page-header">Aggiungi Test a Database</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".json">
+    <input type="submit" value="Carica">
+  {{ form.hidden_tag() }}
+</form>
+</div>
+</form>
+
+{% endblock %}

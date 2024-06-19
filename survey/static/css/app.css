@@ -1,0 +1,11 @@
+body {
+    padding-top: 50px;
+}
+
+.hover-border {
+    transition: border-color 0.3s; /* Add a smooth transition effect */
+}
+
+.hover-border:hover {
+    border: 2px solid lightgreen; /* Add light green border on hover */
+}
