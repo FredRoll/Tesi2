@@ -1,20 +1,20 @@
 from flask import render_template, abort, flash, redirect, url_for, request, send_file
 from flask_login import login_user, logout_user, current_user, login_required
-from app import app, db
-from forms import LoginForm, RegistrationForm
-from models import User, Photoshopper, Image, Preference, Test, Question, Answer,TestPreference
+from werkzeug.wrappers import Request
+from . import app, db
+from .forms import LoginForm, RegistrationForm
+from .models import User, Photoshopper, Image, Preference, Test, Question, Answer,TestPreference
 from random import shuffle
 from flask import session
 from urllib.parse import urlparse
 import random, os
+import array as arr
+from flask import Flask, Response
 import csv
 import json
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-@app.route('/')
-def index():
-   return render_template('index.html')
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/access_denied')
 def access_denied():
