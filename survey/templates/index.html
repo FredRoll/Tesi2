@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 {% block main %}
-    {% if end == True %}
-        <br>
-        <br>
-        <h2>Complimenti {{ current_user.username }}, hai terminato il test!</h2>
-    {% else %}
         <h2>Ciao, {{ current_user.username }}!</h2>
-        <br>
-        <h4><a href="{{ url_for('test') }}">Giudica le foto!</a></li></h4>
         <br>
         <br>
         {% if is_empty %}
@@ -23,11 +16,4 @@
                 <input type="submit" value="Inizia il test!">
             </form>
         {% endif %}
-        {% if current_user.username == "admin" %}
-            <h5>Pannello test filtro foto</h5>
-            <form method="post">
-                <input type="submit" name="a" value="Elimina preferenze">
-            </form>
-        {% endif %}
-    {% endif %}
 {% endblock %}

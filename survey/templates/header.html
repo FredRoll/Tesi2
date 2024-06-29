@@ -14,14 +14,10 @@
               <li><a href="{{ url_for('login') }}">Login</a></li>
 			      {% elif current_user.username=="admin" %}
               <li><a href="{{ url_for('index') }}">Home</a></li>
-			        <li><a href="{{ url_for('secret') }}">Database</a></li>
-			        <li><a href="{{ url_for('grafici') }}">Grafici</a></li>
-			        <li><a href="{{ url_for('insert_img') }}">Inserisci Immagine</a></li>
 			        <li><a href="{{ url_for('insert_test') }}">Inserisci Test</a></li>
               <li><a href="{{ url_for('survey_response') }}">Risultati Sondaggio</a></li>
             {% else %}
               <li><a href="{{ url_for('index') }}">Home</a></li>
-			        <li><a href="{{ url_for('grafici') }}">Grafici</a></li>
             {% endif %}
           </ul>
 

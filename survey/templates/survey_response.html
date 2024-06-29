@@ -12,12 +12,6 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
-                <td>
-                    <form method="POST" action="/delete_user">
-                        <input name="user_id" type="hidden" value="{{ user.id }}">
-                        <input type="submit" value="Elimina User">
-                    </form>
-                </td>
             </tr>
           {% endfor %}
        </tbody>

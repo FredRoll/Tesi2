@@ -27,32 +27,6 @@ class User(UserMixin, db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
-        
-class Image(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(9), index=True, unique=True)
-    
-    def __repr__(self):
-        return '<Image {}>'.format(self.name)
-
-
-class Photoshopper(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    
-    def __repr__(self):
-        return '<Photoshopper {}>'.format(self.name)
-
-
-class Preference(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    photoshopper_id = db.Column(db.Integer, db.ForeignKey(Photoshopper.id))
-    image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
-    #__table_args__ = (UniqueConstraint('user_id', 'image_id'),)  
-    
-    def __repr__(self):
-        return '<Preference {}>'.format(self.user_id)
 
 class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
