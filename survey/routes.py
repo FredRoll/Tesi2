@@ -1,18 +1,12 @@
-from flask import render_template, abort, flash, redirect, url_for, request, send_file
+import os
+import json
+from flask import render_template, abort, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
-from werkzeug.wrappers import Request
+from urllib.parse import urlparse
+
 from . import app, db
 from .forms import LoginForm, RegistrationForm
-from .models import User, Test, Question, Answer,TestPreference
-from random import shuffle
-from flask import session
-from urllib.parse import urlparse
-import random, os
-import array as arr
-from flask import Flask, Response
-import csv
-import json
-
+from .models import User, Test, Question, Answer, TestPreference
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -20,14 +14,13 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 def access_denied():
    return render_template('access_denied.html')
 
+
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-
     tests = Test.query.all()
     is_empty = len(tests) == 0
-
     return render_template('index.html', title='Home', tests=tests, is_empty=is_empty)
 
 
@@ -57,16 +50,12 @@ def logout():
     return redirect(url_for('index'))
 
 
-
-
 # FUNZIONE PER LA REGISTRAZIONE DI UN NUOVO UTENTE
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    
     if form.validate_on_submit():
         user = User(username=form.username.data)
         user.set_password(form.password.data)
@@ -74,7 +63,6 @@ def register():
         db.session.commit()
         flash('Congratulazioni, sei un utente registrato adesso!')
         return redirect(url_for('login'))
-        
     return render_template('register.html', title='Register', form=form)
     
 
@@ -82,29 +70,19 @@ def register():
 @app.route("/insert_test", methods=['POST','GET'])
 @login_required
 def insert_test():
-
     if not current_user.is_admin_user():  # Controllo se l'utente corrente è "admin"
         flash('Accesso negato! Solo l\'utente "admin" può accedere a questa pagina.')
         return redirect(url_for('access_denied'))
-    
-    error = None
     form = RegistrationForm()
-    
     if request.method == 'POST':        
-        
         if 'file' not in request.files:
             flash('Nome non valido')
-
         else:
             file = request.files['file']
-
             if file.filename == '':
                 flash('Nessun file selezionato')
-            
             elif file and file.filename.endswith('.json'):
-
                 file_path = 'uploads/' + file.filename
-
                 file.save('uploads/' + file.filename)
                 try:
                     with open(file_path, 'r') as f:
@@ -114,25 +92,20 @@ def insert_test():
                     flash('Formato JSON non valido. Manca la chiave "name" del test.')
                     os.remove(file_path)
                     return render_template('insert_test.html', form=form)
-
                 if db.session.query(Test.id).filter_by(name=name).scalar() is not None:
                     flash('Test gia esistente!')
-            
                 else:
                     test_db = Test(name=name)
                     db.session.add(test_db)
                     questions_db = []
                     answers_db = []
-
                     try:
                         questions = data["questions"]
                     except KeyError:
                         flash('Formato JSON non valido. Manca la chiave "questions" del test.')
                         os.remove(file_path)
                         return render_template('insert_test.html', form=form)
-
                     for question in questions:
-
                         try:
                             question_value = question["value"]
                             if db.session.query(Question.id).filter_by(value=question_value).filter_by(test_id=test_db.id).scalar() is not None:
@@ -146,14 +119,12 @@ def insert_test():
                             flash('Formato JSON non valido. Manca la chiave "value" di una question.')
                             os.remove(file_path)
                             return render_template('insert_test.html', form=form)
-
                         try:
                             answers = question["answers"]
                         except KeyError:
                             flash('Formato JSON non valido. Manca la chiave "answers".')
                             os.remove(file_path)
-                            return render_template('insert_test.html', form=form)
-                        
+                            return render_template('insert_test.html', form=form) 
                         for answer in answers:
                             try:
                                 answer_value = answer["value"]
@@ -169,18 +140,12 @@ def insert_test():
                                 flash('Formato JSON non valido. Manca la chiave "value" di una answer.')
                                 os.remove(file_path)
                                 return render_template('insert_test.html', form=form)
-
                     db.session.commit()
-                    flash('Congratulazioni, test aggiunto al database!')
-                
+                    flash('Congratulazioni, test aggiunto al database!')    
                 os.remove(file_path)
-
             else:
                 flash('Tipo di file non valido. Perfavore carica un file JSON.')
-
     return render_template('insert_test.html', form=form)
-
-
 
 
 # VISUALIZZAZIONE DATI DB    
@@ -208,20 +173,7 @@ def survey_response():
  .filter(TestPreference.user_id == User.id)\
  .order_by(Test.id, User.id)\
  .all()
-
     return render_template('survey_response.html', users=users, tests=tests, responses=responses)
-
-
-@app.route("/index", methods = ["POST","GET"] ) 
-@login_required
-def contact():        
-    if request.form['a'] == 'Elimina preferenze':
-        prefs = Preference.query.all()
-        for pref in prefs:   
-            db.session.delete(pref)
-            db.session.commit()
-        return render_template('index.html')
-
 
 
 @app.route('/start_test')
@@ -237,15 +189,12 @@ def start_test():
         return render_template('start_test.html', test=test, questions=questions)
 
 
-
 @app.route('/submit_test', methods=['POST'])
 def submit_test():
     user_id = current_user.id
     form_data = request.form
     print("Contenuto del form:", form_data)  
-
     try:
-        
         for key in form_data:
             if key.startswith('question_'):
                 question_id = key.split('_')[1]  
@@ -257,18 +206,14 @@ def submit_test():
                     print(f"Aggiunto TestPreference: {test_preference}")  # Debug dell'oggetto creato
                 else:
                     print(f"Nessuna risposta valida trovata per question_id: {question_id} con answer_id: {answer_id}")
-        
         db.session.commit()
     except Exception as e:
         print(f"Si è verificato un errore: {e}")
         db.session.rollback()
         return redirect(url_for('start_test'))
-
     return redirect(url_for('end_test'))
 
 
 @app.route('/end_test')
 def end_test():
     return render_template('end_test.html')
-
-
