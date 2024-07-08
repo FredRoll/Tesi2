@@ -1,10 +1,12 @@
 from flask import Flask
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 
-from config import Config # Andrebbe integrato dentro survey
+
+from survey.config import Config 
 
 app = Flask(__name__)
 
@@ -15,4 +17,5 @@ login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
 
-from survey import routes, models # Andrebbe rimosso
+from .routes import * 
+from .models import *
