@@ -1,10 +1,10 @@
 Metadata-Version: 2.1
 Name: survey
 Version: 0.1
-Summary: Una breve descrizione del tuo progetto
-Home-page:https://github.com/FredRoll/survey_example
+Summary: This web app allows you to conduct a survey
+Home-page: https://github.com/FredRoll/survey_example
 Author: Alfredo Trimarchi
-Author-email: alfredotrimarchi.01@universitadipavia.it
+Author-email: alfredo.trimarchi01@univeersitadipavia.it
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
@@ -16,3 +16,16 @@ Requires-Dist: Flask-Migrate
 Requires-Dist: Flask-Login
 Requires-Dist: Flask-Bootstrap
 Requires-Dist: flask_wtf
+
+# survey_example
+
+1. Creare un ambiente virtuale .venv
+``` python -m venv .venv ```
+2. Attivare l'ambiente virtuale (Windows)
+``` .venv\Scripts\Activate.ps1 ```
+3. Installare il pacchetto "survey"
+``` pip install src\survey-0.1-py3-none-any.whl ```
+4. Impostare la configurazione del db nel file config.py
+
+4. Lanciare main.py
+``` python main.py ```

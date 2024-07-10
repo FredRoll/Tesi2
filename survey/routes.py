@@ -82,8 +82,11 @@ def insert_test():
             if file.filename == '':
                 flash('Nessun file selezionato')
             elif file and file.filename.endswith('.json'):
-                file_path = 'uploads/' + file.filename
-                file.save('uploads/' + file.filename)
+                upload_dir = os.path.join(os.getcwd(), 'uploads')
+                if not os.path.exists(upload_dir):
+                    os.makedirs(upload_dir)
+                file_path = os.path.join(upload_dir, file.filename)
+                file.save(file_path)
                 try:
                     with open(file_path, 'r') as f:
                         data = json.load(f)
@@ -141,8 +144,7 @@ def insert_test():
                                 os.remove(file_path)
                                 return render_template('insert_test.html', form=form)
                     db.session.commit()
-                    flash('Congratulazioni, test aggiunto al database!')    
-                os.remove(file_path)
+                    flash('Congratulazioni, test aggiunto al database!')
             else:
                 flash('Tipo di file non valido. Perfavore carica un file JSON.')
     return render_template('insert_test.html', form=form)

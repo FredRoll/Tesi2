@@ -1,5 +1,6 @@
-.venv
 **/__pycache__
-survey/survey.egg-info
-
+build
+dist
+survey.egg-info
 survey/static/imgs/**/*.png
+uploads
