@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Test</title>
+</head>
+<body>
+  <h1>Benvenuto al {{ test.name }}</h1>
+  <form method="POST" action="/submit_test">
+    {% for question in questions %}
+      <h2>{{ question.value }}</h2>
+      <ul>
+        {% for answer in question.answers %}
+          <li>
+            <input type="radio" name="question_{{ question.id }}" value="{{ answer.id }}">
+            {% if answer.is_image %}
+              <img src="{{ answer.value }}" alt="Image for answer">
+            {% else %}
+              {{ answer.value }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+    
+    <button type="submit">Invia</button>
+  </form>
+</body>
+</html>
+

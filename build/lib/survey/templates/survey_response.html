@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h2>Lista utenti registrati</h2>
+    <table border="1">
+       <thead>
+          <tr>
+              <th>Username</th>
+          </tr>
+       </thead>
+       <tbody>
+          {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+            </tr>
+          {% endfor %}
+       </tbody>
+    </table>
+    <h2>Lista Test</h2>
+    <table border="1">
+       <thead>
+          <tr>
+              <th>ID Test</th>
+              <th>Nome Test</th>
+          </tr>
+       </thead>
+       <tbody>
+          {% for test in tests %}
+            <tr>
+                <td>{{ test.id }}</td>
+                <td>{{ test.name }}</td>
+            </tr>
+          {% endfor %}
+       </tbody>
+    </table>
+    
+    <h2>Risposte ai Test</h2>
+    {% for test in tests %}
+        <h3>{{ test.name }}</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Utente</th>
+                    <th>Domanda</th>
+                    <th>Risposta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for response in responses %}
+                    {% if response.test_id == test.id %}
+                        <tr>
+                            <td>{{ response.username }}</td>
+                            <td>{{ response.question }}</td>
+                            <td>{{ response.answer }}</td>
+                        </tr>
+                    {% endif %} 
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+
+{% endblock %}

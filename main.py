@@ -1,11 +1,15 @@
-from survey import app, db
-from survey.models import User, Test, TestPreference, Question, Answer
+from survey import set_config, app
+from config import Config 
+from survey import db
 
-@app.shell_context_processor
-def make_shell_context():
-   return {'db': db,
-           'User': User,
-           'Test':Test,
-           'TestPreference':TestPreference,
-           'Question':Question,
-           'Answer':Answer}
+def main():
+    set_config(Config)
+    
+    with app.app_context():
+       db.create_all()
+
+    app.run(host='0.0.0.0', port=5300)
+
+if __name__ == "__main__":
+    main()
+

@@ -1,0 +1,18 @@
+Metadata-Version: 2.1
+Name: survey
+Version: 0.1
+Summary: Una breve descrizione del tuo progetto
+Home-page: https://github.com/tuo_username/mio_progetto
+Author: Il Tuo Nome
+Author-email: tuo_email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: Flask
+Requires-Dist: Flask-SQLAlchemy
+Requires-Dist: Flask-Migrate
+Requires-Dist: Flask-Login
+Requires-Dist: Flask-Bootstrap
+Requires-Dist: flask_wtf

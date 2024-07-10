@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<style>
+	[type=radio] {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	/* IMAGE STYLES */
+	[type=radio]+img {
+		cursor: pointer;
+	}
+
+	/* CHECKED STYLES */
+	[type=radio]:checked+img {
+		outline: 2px solid #f00;
+	}
+
+	img:hover {
+		opacity: 0.6;
+	}
+
+	@media (min-width: 1700px) {
+		.container {
+			width: 1700px;
+		}
+	}
+</style>
+<br>
+<form action="/test" method="POST">
+	<div class="immagini">
+		<img height="200" width="200"
+			style="border:5px solid black; display: block; margin: 0 auto; max-width: 100%; height: auto; pointer-events: none;"
+			src='/static/imgs/raw/{{test_img_name}}'>
+		<ul style="list-style:none">
+			{% for dir in photoshopped_images_dir_list %}
+			<li style="display:inline-grid;">
+				<label>
+					{% if( photoshopper_sel != "null") %}
+					{% if( dir == photoshopper_sel) %}
+					<input type="submit" name="b" value='{{dir}}' input type="hidden" style="display:none;"
+						onclick="$(this).closest('form').submit();" required><img height="200" width="200"
+						style="border:5px solid red;" src='/static/imgs/{{dir}}/{{test_img_name}}' class="hover-border" />
+					<input name="text" value='{{test_img_name}}' input type="hidden">
+			</li>
+			{% else %}
+			<input type="submit" name="b" value='{{dir}}' input type="hidden" style="display:none;"
+				onclick="$(this).closest('form').submit();" required><img height="200" width="200"
+				src='/static/imgs/{{dir}}/{{test_img_name}}' class="hover-border" />
+			<input name="text" value='{{test_img_name}}' input type="hidden"></li>
+			{% endif %}
+			</label>
+
+			{% else %}
+
+
+			<input type="submit" name="b" value='{{dir}}' input type="hidden" style="display:none;"
+				onclick="$(this).closest('form').submit();" required><img height="200" width="200"
+				src='/static/imgs/{{dir}}/{{test_img_name}}' class="hover-border" />
+			<input name="text" value='{{test_img_name}}' input type="hidden"></li>
+
+			</label>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+
+	{% if( photoshopper_sel == "null") %}
+	<input type="submit" name="b" value="Indietro"><input name="text" value='{{test_img_name}}' input type="hidden">
+	<h4>Hai testato {{r}} immagini</h4>
+	{% endif %}
+	{% if( photoshopper_sel != "null") %}
+	{% if(n ==0) %}
+	<input type="submit" name="b" value="Avanti"><input name="text" value='{{test_img_name}}' input type="hidden">
+	<h4>{{n+1}}/{{r}}</h4>
+	{% else %}
+	<input type="submit" name="b" value="Indietro"><input name="text" value='{{test_img_name}}' input type="hidden">
+	<input type="submit" name="b" value="Avanti"><input name="text" value='{{test_img_name}}' input type="hidden">
+	<h4>{{n+1}}/{{r}}</h4>
+
+
+	{% endif %}
+	{% endif %}
+
+
+	<a href="{{ url_for('index') }}">Termina test</a>
+</form>
+
+
+{% endblock %}
