@@ -20,12 +20,12 @@ setup(
             'run_survey=main:main',  # Comando per eseguire la tua app
         ],
     },
-    author='Il Tuo Nome',
-    author_email='tuo_email@example.com',
-    description='Una breve descrizione del tuo progetto',
+    author='Alfredo Trimarchi',
+    author_email='alfredo.trimarchi01@univeersitadipavia.it',
+    description='This web app allows you to conduct a survey',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/tuo_username/mio_progetto',  # URL del repository se esiste
+    url='https://github.com/FredRoll/survey_example',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',

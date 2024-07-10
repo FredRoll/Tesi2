@@ -2,9 +2,9 @@ Metadata-Version: 2.1
 Name: survey
 Version: 0.1
 Summary: Una breve descrizione del tuo progetto
-Home-page: https://github.com/tuo_username/mio_progetto
-Author: Il Tuo Nome
-Author-email: tuo_email@example.com
+Home-page:https://github.com/FredRoll/survey_example
+Author: Alfredo Trimarchi
+Author-email: alfredotrimarchi.01@universitadipavia.it
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent

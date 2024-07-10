@@ -6,4 +6,3 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir,'api.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-#se cambio sa app.db ad api.db si inviperisce
